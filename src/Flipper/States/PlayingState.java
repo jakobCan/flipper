@@ -1,0 +1,30 @@
+package src.Flipper.States;
+
+import src.Flipper.FlipperMachine;
+
+public class PlayingState implements FlipperState {
+
+    FlipperMachine flipperMachine;
+
+    public PlayingState(FlipperMachine flipperMachine) {
+        this.flipperMachine = flipperMachine;
+    }
+
+    @Override
+    public void insertCoin() {
+        flipperMachine.setCredit(1);
+    }
+
+    @Override
+    public void pressStart() {
+        System.out.println("FlipperMachine written by Jakob Can. Thanks for playing ♥♥♥");
+    }
+
+    @Override
+    public void loseBall() {
+        flipperMachine.setBall(flipperMachine.getBall() + 1);
+        if (flipperMachine.getBall() == 4){
+            flipperMachine.setCurrentState(flipperMachine.getEnd());
+        }
+    }
+}
