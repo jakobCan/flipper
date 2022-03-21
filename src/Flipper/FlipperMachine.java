@@ -2,19 +2,26 @@ package src.Flipper;
 
 import src.Flipper.States.*;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class FlipperMachine {
 
-    FlipperState noCredit;
-    FlipperState ready;
-    FlipperState playing;
-    FlipperState end;
+    private FlipperState noCredit;
+    private FlipperState ready;
+    private FlipperState playing;
+    private FlipperState end;
 
-    FlipperState currentState;
+    private FlipperState currentState;
+    private final PropertyChangeSupport support;
 
-    int credit = 0;
-    int ball = 0;
+
+    private int credit = 0;
+    private int ball = 0;
 
     public FlipperMachine() {
+        support = new PropertyChangeSupport(this);
+
         noCredit = new NoCreditState(this);
         ready = new ReadyState(this);
         playing = new PlayingState(this);
@@ -24,6 +31,7 @@ public class FlipperMachine {
     }
 
     public void setCurrentState(FlipperState newFlipperState){
+        support.firePropertyChange("state", this.currentState, newFlipperState);
         currentState = newFlipperState;
     }
 
@@ -51,12 +59,7 @@ public class FlipperMachine {
         currentState.pressStart();
     }
 
-    public void loseBall(){
-        currentState.loseBall();
-    }
-
     public FlipperState changeToEndState(){
-
         return getEnd();
     }
 
@@ -64,5 +67,13 @@ public class FlipperMachine {
     public FlipperState getReady(){ return ready; }
     public FlipperState getPlaying(){ return playing; }
     public FlipperState getEnd(){ return end; }
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+        support.removePropertyChangeListener(pcl);
+    }
 
 }

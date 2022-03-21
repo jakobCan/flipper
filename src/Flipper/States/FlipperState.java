@@ -12,8 +12,4 @@ public interface FlipperState {
 //    prints msg when no credit
 //    prints author when in PlayingState
     void pressStart();
-
-//    when ball is lost 3 times, change to EndState
-//    from EndState either NoCredit or Ready will be selected
-    void loseBall();
 }

@@ -2,16 +2,16 @@ package src.Flipper.States;
 
 import src.Flipper.FlipperMachine;
 
-public class EndState implements FlipperState {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-    // TODO: 07.03.2022 Wenn ein Spiel beendet wird, soll es die Möglichkeit geben, ein gratis Spiel zu gewinnen.
-    //  Dafür müsste ich eine Methode automatisch aufrufen, wenn auf EndState gewechselt wird. Wie mach ich das?
-    //  Vermittler-Pattern? Macht es Sinn, dass EndState ein eigener Zustand ist? -> Observer-Pattern
+public class EndState implements FlipperState, PropertyChangeListener {
 
     FlipperMachine flipperMachine;
 
     public EndState(FlipperMachine flipperMachine) {
         this.flipperMachine = flipperMachine;
+        this.flipperMachine.addPropertyChangeListener(this);
     }
 
     @Override
@@ -25,7 +25,19 @@ public class EndState implements FlipperState {
     }
 
     @Override
-    public void loseBall() {
-//        Kann der User das im EndState?
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getNewValue() == this){
+            if (winGameChance()){
+                flipperMachine.setCurrentState(flipperMachine.getReady());
+            } else {
+                flipperMachine.setCurrentState(flipperMachine.getNoCredit());
+            }
+        }
     }
+
+    private boolean winGameChance() {
+        return Math.random() < 0.5;
+    }
+
+
 }
