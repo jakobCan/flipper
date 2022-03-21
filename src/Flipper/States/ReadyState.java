@@ -12,7 +12,7 @@ public class ReadyState implements FlipperState {
 
     @Override
     public void insertCoin() {
-        flipperMachine.setCredit(1);
+        flipperMachine.setCredit(flipperMachine.getCredit() + 1);
     }
 
     @Override

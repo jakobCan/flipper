@@ -55,6 +55,11 @@ public class FlipperMachine {
         currentState.loseBall();
     }
 
+    public FlipperState changeToEndState(){
+
+        return getEnd();
+    }
+
     public FlipperState getNoCredit(){ return noCredit; }
     public FlipperState getReady(){ return ready; }
     public FlipperState getPlaying(){ return playing; }
