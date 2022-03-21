@@ -20,7 +20,6 @@ public class PlayingState implements FlipperState {
         System.out.println("FlipperMachine written by Jakob Can. Thanks for playing ♥♥♥");
     }
 
-    @Override
     public void loseBall() {
         flipperMachine.setBall(flipperMachine.getBall() + 1);
         if (flipperMachine.getBall() == 4){

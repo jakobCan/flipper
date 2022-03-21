@@ -20,9 +20,4 @@ public class ReadyState implements FlipperState {
         flipperMachine.setBall(1);
         flipperMachine.setCurrentState(flipperMachine.getPlaying());
     }
-
-    @Override
-    public void loseBall() {
-        System.out.println("You shouldn't be able to lose a ball while in ReadyState! How did you do this!?");
-    }
 }

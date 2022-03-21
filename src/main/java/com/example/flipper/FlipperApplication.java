@@ -8,6 +8,8 @@ public class FlipperApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FlipperApplication.class, args);
+
+
     }
 
 }
