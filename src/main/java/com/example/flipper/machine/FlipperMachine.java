@@ -1,5 +1,6 @@
 package com.example.flipper.machine;
 
+import com.example.flipper.machine.flipperElements.command.AddScoreCommand;
 import com.example.flipper.machine.flipperElements.composite.Bumper;
 import com.example.flipper.machine.flipperElements.composite.FlipperElement;
 import com.example.flipper.machine.flipperElements.visitor.Scoreboard;
@@ -38,7 +39,7 @@ public class FlipperMachine {
 		end = new EndState(this);
 		currentState = noCredit;
 		this.scoreboard = new Scoreboard();
-//		this.flipperElements.add(new Bumper());
+		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard)));
 	}
 	
 	public void setCredit(int credit) {
