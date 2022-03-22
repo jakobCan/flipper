@@ -99,7 +99,7 @@ public class FlipperMachine {
 	public void setCurrentState(FlipperState newFlipperState) {
 		support.firePropertyChange("state", this.currentState, newFlipperState);
 		currentState = newFlipperState;
-		System.out.println("Changed to " + this.currentState);
+		System.out.println("Flipper is now in " + currentState.getClass().getSimpleName());
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -111,8 +111,7 @@ public class FlipperMachine {
 	}
 
 	public void hitEverythingOnce(){
-		for (FlipperElement element :
-				flipperElements) {
+		for (FlipperElement element : flipperElements) {
 			element.hit();
 		}
 	}
