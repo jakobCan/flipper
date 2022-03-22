@@ -8,7 +8,7 @@ public class AddScoreCommand implements Command {
     int score = 100;
 
     public AddScoreCommand(Scoreboard scoreboard) {
-
+        this.scoreboard = scoreboard;
     }
 
     @Override

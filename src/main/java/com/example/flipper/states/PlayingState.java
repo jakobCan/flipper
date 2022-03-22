@@ -23,7 +23,6 @@ public class PlayingState implements FlipperState {
     public void loseBall() {
         flipperMachine.setBall(flipperMachine.getBall() + 1);
         if (flipperMachine.getBall() == 4){
-            flipperMachine.getScoreboard().calculateScore();
             flipperMachine.setCurrentState(flipperMachine.getEnd());
         }
     }

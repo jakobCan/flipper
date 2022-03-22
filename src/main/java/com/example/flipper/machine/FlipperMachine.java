@@ -3,6 +3,7 @@ package com.example.flipper.machine;
 import com.example.flipper.machine.flipperElements.command.AddScoreCommand;
 import com.example.flipper.machine.flipperElements.composite.Bumper;
 import com.example.flipper.machine.flipperElements.composite.FlipperElement;
+import com.example.flipper.machine.flipperElements.composite.RightEject;
 import com.example.flipper.machine.flipperElements.visitor.Scoreboard;
 import com.example.flipper.states.*;
 
@@ -40,6 +41,7 @@ public class FlipperMachine {
 		currentState = noCredit;
 		this.scoreboard = new Scoreboard();
 		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard)));
+		this.flipperElements.add(new RightEject(new AddScoreCommand(scoreboard)));
 	}
 	
 	public void setCredit(int credit) {
@@ -97,6 +99,7 @@ public class FlipperMachine {
 	public void setCurrentState(FlipperState newFlipperState) {
 		support.firePropertyChange("state", this.currentState, newFlipperState);
 		currentState = newFlipperState;
+		System.out.println("Changed to " + this.currentState);
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -106,5 +109,11 @@ public class FlipperMachine {
 	public void removePropertyChangeListener(PropertyChangeListener pcl) {
 		support.removePropertyChangeListener(pcl);
 	}
-	
+
+	public void hitEverythingOnce(){
+		for (FlipperElement element :
+				flipperElements) {
+			element.hit();
+		}
+	}
 }

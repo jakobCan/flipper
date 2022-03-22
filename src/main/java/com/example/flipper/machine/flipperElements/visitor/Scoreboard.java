@@ -10,9 +10,15 @@ import java.util.List;
 public class Scoreboard {
 
 
-	int score = 0;
-	int multiplicator = 1;
-	private List<Command> commands = new ArrayList<>();
+	int score;
+	int multiplicator;
+//	private List<Command> commands = new ArrayList<>();
+
+
+	public Scoreboard() {
+		this.score = 0;
+		this.multiplicator = 1;
+	}
 
 	public int getMultiplicator() {
 		return multiplicator;
@@ -22,15 +28,13 @@ public class Scoreboard {
 		this.multiplicator = multiplicator;
 	}
 
-	public void saveHit(Command command) {
-		commands.add(command);
+	public int getScore() {
+		return score;
 	}
 
-	public void calculateScore() {
-		for (Command h : commands) {
-			h.execute();
-		}
-	}
+	//	public void saveHit(Command command) {
+//		commands.add(command);
+//	}
 
 	public void addPoints(int i) {
 		this.score += i;
