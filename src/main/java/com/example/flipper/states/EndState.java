@@ -1,6 +1,6 @@
-package src.Flipper.States;
+package com.example.flipper.states;
 
-import src.Flipper.FlipperMachine;
+import com.example.flipper.machine.FlipperMachine;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

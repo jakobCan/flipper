@@ -1,4 +1,4 @@
-package src.Flipper.States;
+package com.example.flipper.states;
 
 public interface FlipperState {
 
