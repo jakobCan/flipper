@@ -3,7 +3,8 @@ package com.example.flipper.machine;
 import com.example.flipper.machine.flipperElements.command.AddScoreCommand;
 import com.example.flipper.machine.flipperElements.composite.Bumper;
 import com.example.flipper.machine.flipperElements.composite.FlipperElement;
-import com.example.flipper.machine.flipperElements.composite.RightEject;
+import com.example.flipper.machine.flipperElements.composite.Ramp;
+import com.example.flipper.machine.flipperElements.mediator.Mediator;
 import com.example.flipper.machine.flipperElements.visitor.Scoreboard;
 import com.example.flipper.states.*;
 
@@ -12,7 +13,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlipperMachine {
+public class FlipperMachine implements Mediator {
 	
 	// State pattern
 	private FlipperState noCredit;
@@ -40,8 +41,10 @@ public class FlipperMachine {
 		end = new EndState(this);
 		currentState = noCredit;
 		this.scoreboard = new Scoreboard();
-		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard)));
-		this.flipperElements.add(new RightEject(new AddScoreCommand(scoreboard)));
+		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 1));
+		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 2));
+		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 3));
+		this.flipperElements.add(new Ramp(new AddScoreCommand(scoreboard)));
 	}
 	
 	public void setCredit(int credit) {
@@ -115,4 +118,16 @@ public class FlipperMachine {
 			element.hit();
 		}
 	}
+
+	@Override
+	public void notify(FlipperElement sender) {
+/*		if (){
+
+		}*/
+	}
+
+/*	private boolean isBumper(FlipperElement flipperElement){
+
+		return
+	}*/
 }
