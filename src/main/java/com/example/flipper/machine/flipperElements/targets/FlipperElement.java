@@ -1,4 +1,4 @@
-package com.example.flipper.machine.flipperElements.composite;
+package com.example.flipper.machine.flipperElements.targets;
 
 public abstract class FlipperElement {
 	public int hitCount;
