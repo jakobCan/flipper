@@ -1,6 +1,8 @@
 package com.example.flipper.states;
 
 import com.example.flipper.machine.FlipperMachine;
+import com.example.flipper.machine.flipperElements.factories.EndStateFactory;
+import com.example.flipper.machine.flipperElements.factories.NoCrediteStateFactory;
 
 public class NoCreditState implements FlipperState {
 
@@ -17,6 +19,6 @@ public class NoCreditState implements FlipperState {
 
     @Override
     public void pressStart() {
-        System.out.println("No credit! Please insert coin(s).");
+        System.out.println(flipperMachine.getFactory().showState());
     }
 }

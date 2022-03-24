@@ -1,6 +1,9 @@
 package com.example.flipper.states;
 
 import com.example.flipper.machine.FlipperMachine;
+import com.example.flipper.machine.flipperElements.factories.EndStateFactory;
+import com.example.flipper.machine.flipperElements.factories.NoCrediteStateFactory;
+import com.example.flipper.machine.flipperElements.factories.ReadyStateFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,21 +18,19 @@ public class EndState implements FlipperState, PropertyChangeListener {
     }
 
     @Override
-    public void insertCoin() {
-//        Kann der User das im EndState?
-    }
+    public void insertCoin() {}
 
     @Override
-    public void pressStart() {
-//        Kann der User das im EndState?
-    }
+    public void pressStart() {}
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getNewValue() == this){
             if (winGameChance()){
+                flipperMachine.setFactory(new ReadyStateFactory());
                 flipperMachine.setCurrentState(flipperMachine.getReady());
             } else {
+                flipperMachine.setFactory(new NoCrediteStateFactory());
                 flipperMachine.setCurrentState(flipperMachine.getNoCredit());
             }
         }

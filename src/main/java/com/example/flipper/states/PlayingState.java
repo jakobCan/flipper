@@ -1,6 +1,7 @@
 package com.example.flipper.states;
 
 import com.example.flipper.machine.FlipperMachine;
+import com.example.flipper.machine.flipperElements.factories.EndStateFactory;
 
 public class PlayingState implements FlipperState {
 
@@ -24,6 +25,7 @@ public class PlayingState implements FlipperState {
         flipperMachine.setBall(flipperMachine.getBall() + 1);
         if (flipperMachine.getBall() == 4){
             flipperMachine.reset();
+            flipperMachine.setFactory(new EndStateFactory());
             flipperMachine.setCurrentState(flipperMachine.getEnd());
         }
     }

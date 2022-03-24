@@ -1,6 +1,7 @@
 package com.example.flipper.states;
 
 import com.example.flipper.machine.FlipperMachine;
+import com.example.flipper.machine.flipperElements.factories.ReadyStateFactory;
 
 public class ReadyState implements FlipperState {
 
@@ -18,6 +19,7 @@ public class ReadyState implements FlipperState {
     @Override
     public void pressStart() {
         flipperMachine.setBall(1);
+        flipperMachine.setFactory(new ReadyStateFactory());
         flipperMachine.setCurrentState(flipperMachine.getPlaying());
     }
 }

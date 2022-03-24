@@ -1,6 +1,8 @@
 package com.example.flipper.machine;
 
 import com.example.flipper.machine.flipperElements.command.AddScoreCommand;
+import com.example.flipper.machine.flipperElements.factories.AbstractStateFactory;
+import com.example.flipper.machine.flipperElements.factories.NoCrediteStateFactory;
 import com.example.flipper.machine.flipperElements.targets.Bumper;
 import com.example.flipper.machine.flipperElements.targets.FlipperElement;
 import com.example.flipper.machine.flipperElements.targets.Ramp;
@@ -17,12 +19,18 @@ import java.util.List;
 
 public class FlipperMachine implements Mediator {
 	
+	private int credit = 0;
+	private int ball = 0;
+
 	// State pattern
 	private FlipperState noCredit;
 	private FlipperState ready;
 	private FlipperState playing;
 	private FlipperState end;
 	private FlipperState currentState;
+	
+	// Abstract Factory pattern
+	private AbstractStateFactory factory;
 	
 	// Observer pattern
 	private final PropertyChangeSupport support;
@@ -32,12 +40,9 @@ public class FlipperMachine implements Mediator {
 	private List<FlipperElement> flipperElements = new ArrayList<>();
 	private List<Bumper> bumpers = new ArrayList<>();
 	private List<Ramp> ramps = new ArrayList<>();
-
+	
 	// Visitor pattern
 	ResetVisitor resetVisitor;
-
-	private int credit = 0;
-	private int ball = 0;
 	
 	public FlipperMachine() {
 		support = new PropertyChangeSupport(this);
@@ -46,7 +51,11 @@ public class FlipperMachine implements Mediator {
 		ready = new ReadyState(this);
 		playing = new PlayingState(this);
 		end = new EndState(this);
+
 		currentState = noCredit;
+		this.setFactory(new NoCrediteStateFactory());
+		System.out.println(factory.showState());
+
 		this.scoreboard = new Scoreboard();
 		this.bumpers.add(new Bumper(new AddScoreCommand(scoreboard), this));
 		this.bumpers.add(new Bumper(new AddScoreCommand(scoreboard), this));
@@ -109,6 +118,14 @@ public class FlipperMachine implements Mediator {
 		return scoreboard;
 	}
 	
+	public AbstractStateFactory getFactory() {
+		return factory;
+	}
+	
+	public void setFactory(AbstractStateFactory factory) {
+		this.factory = factory;
+	}
+	
 	public void setScoreboard(Scoreboard scoreboard) {
 		this.scoreboard = scoreboard;
 	}
@@ -117,7 +134,7 @@ public class FlipperMachine implements Mediator {
 	public void setCurrentState(FlipperState newFlipperState) {
 		support.firePropertyChange("state", this.currentState, newFlipperState);
 		currentState = newFlipperState;
-		System.out.println("Flipper is now in " + currentState.getClass().getSimpleName());
+		System.out.println(factory.showState());
 	}
 	
 	public void addPropertyChangeListener(PropertyChangeListener pcl) {
