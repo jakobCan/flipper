@@ -2,6 +2,7 @@ package com.example.flipper.machine.flipperElements.targets;
 
 import com.example.flipper.machine.FlipperMachine;
 import com.example.flipper.machine.flipperElements.command.Command;
+import com.example.flipper.machine.flipperElements.visitor.ResetVisitor;
 
 public class Bumper extends FlipperElement {
 
@@ -27,5 +28,9 @@ public class Bumper extends FlipperElement {
 		hitCount++;
 		command.execute();
 		flipperMachine.notify(this);
+	}
+
+	void acceptVisitor(ResetVisitor visitor) {
+		visitor.visit(this);
 	}
 }

@@ -1,11 +1,12 @@
 package com.example.flipper.machine.flipperElements.targets;
 
 import com.example.flipper.machine.flipperElements.command.Command;
+import com.example.flipper.machine.flipperElements.visitor.Visitor;
 
 public class Ramp extends FlipperElement{
 
     Command command;
-    boolean isOpen = false;
+    public boolean isOpen = false;
 
     public Ramp(Command command) {
         this.hitCount = 0;
@@ -27,5 +28,10 @@ public class Ramp extends FlipperElement{
     @Override
     public void hit(){
         command.execute();
+    }
+
+    @Override
+    public void acceptVisitor(Visitor visitor) {
+        visitor.visit(this);
     }
 }

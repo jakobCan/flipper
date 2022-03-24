@@ -5,7 +5,9 @@ import com.example.flipper.machine.flipperElements.targets.Bumper;
 import com.example.flipper.machine.flipperElements.targets.FlipperElement;
 import com.example.flipper.machine.flipperElements.targets.Ramp;
 import com.example.flipper.machine.flipperElements.mediator.Mediator;
+import com.example.flipper.machine.flipperElements.visitor.ResetVisitor;
 import com.example.flipper.machine.flipperElements.visitor.Scoreboard;
+import com.example.flipper.machine.flipperElements.visitor.Visitor;
 import com.example.flipper.states.*;
 
 import java.beans.PropertyChangeListener;
@@ -31,6 +33,9 @@ public class FlipperMachine implements Mediator {
 	private List<Bumper> bumpers = new ArrayList<>();
 	private List<Ramp> ramps = new ArrayList<>();
 
+	// Visitor pattern
+	ResetVisitor resetVisitor;
+
 	private int credit = 0;
 	private int ball = 0;
 	
@@ -51,6 +56,8 @@ public class FlipperMachine implements Mediator {
 
 		flipperElements.addAll(bumpers);
 		flipperElements.addAll(ramps);
+
+		this.resetVisitor = new ResetVisitor();
 	}
 
 	//<editor-fold desc="Getters & Setters">
@@ -147,7 +154,7 @@ public class FlipperMachine implements Mediator {
 	private void reactOnBumpers() {
 		for (Bumper bumper :
 				bumpers) {
-			if (bumper.hitCount == 0){
+			if (bumper.hasBeenHit()){
 				return;
 			}
 		}
@@ -158,7 +165,14 @@ public class FlipperMachine implements Mediator {
 		for (Ramp ramp :
 				ramps) {
 			ramp.setOpen(true);
-			System.out.println("Opening Ramp " + ramp.toString());
+			System.out.println("Opening Ramp " + ramp);
+		}
+	}
+
+	public void reset() {
+		for (FlipperElement element :
+				flipperElements) {
+			element.acceptVisitor(resetVisitor);
 		}
 	}
 }
