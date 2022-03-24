@@ -1,4 +1,4 @@
-package com.example.flipper.machine.flipperElements.composite;
+package com.example.flipper.machine.flipperElements.targets;
 
 import com.example.flipper.machine.flipperElements.command.Command;
 

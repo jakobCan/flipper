@@ -1,17 +1,17 @@
-package com.example.flipper.machine.flipperElements.composite;
+package com.example.flipper.machine.flipperElements.targets;
 
+import com.example.flipper.machine.FlipperMachine;
 import com.example.flipper.machine.flipperElements.command.Command;
 
 public class Bumper extends FlipperElement {
-	
-//	private int score;
-	private int id;
-	Command command;
 
-	public Bumper(Command command, int id) {
+	Command command;
+	FlipperMachine flipperMachine;
+
+	public Bumper(Command command, FlipperMachine flipperMachine) {
 		this.hitCount=0;
 		this.command = command;
-		this.id = id;
+		this.flipperMachine = flipperMachine;
 	}
 
 	public void setCommand(Command command) {
@@ -24,8 +24,8 @@ public class Bumper extends FlipperElement {
 
 	@Override
 	public void hit() {
+		hitCount++;
 		command.execute();
-
+		flipperMachine.notify(this);
 	}
-
 }

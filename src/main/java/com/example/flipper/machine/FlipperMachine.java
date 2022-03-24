@@ -1,9 +1,9 @@
 package com.example.flipper.machine;
 
 import com.example.flipper.machine.flipperElements.command.AddScoreCommand;
-import com.example.flipper.machine.flipperElements.composite.Bumper;
-import com.example.flipper.machine.flipperElements.composite.FlipperElement;
-import com.example.flipper.machine.flipperElements.composite.Ramp;
+import com.example.flipper.machine.flipperElements.targets.Bumper;
+import com.example.flipper.machine.flipperElements.targets.FlipperElement;
+import com.example.flipper.machine.flipperElements.targets.Ramp;
 import com.example.flipper.machine.flipperElements.mediator.Mediator;
 import com.example.flipper.machine.flipperElements.visitor.Scoreboard;
 import com.example.flipper.states.*;
@@ -28,7 +28,9 @@ public class FlipperMachine implements Mediator {
 	// Composite pattern
 	private Scoreboard scoreboard;
 	private List<FlipperElement> flipperElements = new ArrayList<>();
-	
+	private List<Bumper> bumpers = new ArrayList<>();
+	private List<Ramp> ramps = new ArrayList<>();
+
 	private int credit = 0;
 	private int ball = 0;
 	
@@ -41,12 +43,17 @@ public class FlipperMachine implements Mediator {
 		end = new EndState(this);
 		currentState = noCredit;
 		this.scoreboard = new Scoreboard();
-		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 1));
-		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 2));
-		this.flipperElements.add(new Bumper(new AddScoreCommand(scoreboard), 3));
-		this.flipperElements.add(new Ramp(new AddScoreCommand(scoreboard)));
+		this.bumpers.add(new Bumper(new AddScoreCommand(scoreboard), this));
+		this.bumpers.add(new Bumper(new AddScoreCommand(scoreboard), this));
+		this.bumpers.add(new Bumper(new AddScoreCommand(scoreboard), this));
+		this.ramps.add(new Ramp(new AddScoreCommand(scoreboard)));
+		this.ramps.add(new Ramp(new AddScoreCommand(scoreboard)));
+
+		flipperElements.addAll(bumpers);
+		flipperElements.addAll(ramps);
 	}
-	
+
+	//<editor-fold desc="Getters & Setters">
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
@@ -98,6 +105,7 @@ public class FlipperMachine implements Mediator {
 	public void setScoreboard(Scoreboard scoreboard) {
 		this.scoreboard = scoreboard;
 	}
+	//</editor-fold>
 	
 	public void setCurrentState(FlipperState newFlipperState) {
 		support.firePropertyChange("state", this.currentState, newFlipperState);
@@ -121,13 +129,36 @@ public class FlipperMachine implements Mediator {
 
 	@Override
 	public void notify(FlipperElement sender) {
-/*		if (){
-
-		}*/
+		if (isKnownBumper(sender)){
+			reactOnBumpers();
+		}
 	}
 
-/*	private boolean isBumper(FlipperElement flipperElement){
+	private boolean isKnownBumper(FlipperElement bumper) {
+		for (Bumper listBumper :
+				bumpers) {
+			if (listBumper == bumper){
+				return true;
+			}
+		}
+		return false;
+	}
 
-		return
-	}*/
+	private void reactOnBumpers() {
+		for (Bumper bumper :
+				bumpers) {
+			if (bumper.hitCount == 0){
+				return;
+			}
+		}
+		openRamps();
+	}
+
+	private void openRamps() {
+		for (Ramp ramp :
+				ramps) {
+			ramp.setOpen(true);
+			System.out.println("Opening Ramp " + ramp.toString());
+		}
+	}
 }
