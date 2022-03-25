@@ -32,11 +32,15 @@ public class Scoreboard {
 		return score;
 	}
 
-	//	public void saveHit(Command command) {
-//		commands.add(command);
-//	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 	public void addPoints(int i) {
 		this.score += i;
+	}
+
+	public void acceptVisitor(ResetVisitor visitor) {
+		visitor.visit(this);
 	}
 }

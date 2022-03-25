@@ -18,15 +18,19 @@ public class PlayingState implements FlipperState {
 
     @Override
     public void pressStart() {
-        System.out.println("FlipperMachine written by Jakob Can. Thanks for playing ♥♥♥");
+        System.out.println("FlipperMachine written by Group C. Thanks for playing ♥♥♥");
     }
 
     public void loseBall() {
         flipperMachine.setBall(flipperMachine.getBall() + 1);
         if (flipperMachine.getBall() == 4){
+            System.out.println("Total score: " + flipperMachine.getScoreboard().getScore());
             flipperMachine.reset();
             flipperMachine.setFactory(new EndStateFactory());
             flipperMachine.setCurrentState(flipperMachine.getEnd());
+        }
+        if (flipperMachine.getBall() < 4){
+            System.out.println("Current score: " + flipperMachine.getScoreboard().getScore());
         }
     }
 }

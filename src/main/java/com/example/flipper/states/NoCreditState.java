@@ -3,6 +3,7 @@ package com.example.flipper.states;
 import com.example.flipper.machine.FlipperMachine;
 import com.example.flipper.machine.flipperElements.factories.EndStateFactory;
 import com.example.flipper.machine.flipperElements.factories.NoCrediteStateFactory;
+import com.example.flipper.machine.flipperElements.factories.ReadyStateFactory;
 
 public class NoCreditState implements FlipperState {
 
@@ -14,6 +15,7 @@ public class NoCreditState implements FlipperState {
 
     @Override
     public void insertCoin() {
+        flipperMachine.setFactory(new ReadyStateFactory());
         flipperMachine.setCurrentState(flipperMachine.getReady());
     }
 

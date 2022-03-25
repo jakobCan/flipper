@@ -22,19 +22,34 @@ public class FlipperApplication {
         
         System.out.println("Pressing start");
         flipperMachine.pressStart();
+        System.out.println("Pressing start");
+        flipperMachine.pressStart();
         
-        System.out.println("Inserting coin");
-        flipperMachine.insertCoin();
-        
-        System.out.println("Credits: " + flipperMachine.getCredit());
+//        System.out.println("Inserting coin");
+//        flipperMachine.insertCoin();
+//
+//        System.out.println("Credits: " + flipperMachine.getCredit());
         
         System.out.println("Hitting everything once");
         flipperMachine.hitEverythingOnce();
+
+        System.out.println("Lose ball. Haha!");
+        flipperMachine.loseBall();
+        System.out.println("Ball: " + flipperMachine.getBall());
+
+        System.out.println("Lose ball. Haha!");
+        flipperMachine.loseBall();
+        System.out.println("Ball: " + flipperMachine.getBall());
+
+        System.out.println("Hitting everything once");
+        flipperMachine.hitEverythingOnce();
+
+        System.out.println("Lose ball. Haha!");
+        flipperMachine.loseBall();
+        System.out.println("Ball: " + flipperMachine.getBall());
         
         System.out.println("Credits: " + flipperMachine.getCredit());
         System.out.println("Score: " + flipperMachine.getScoreboard().getScore());
-
-        
 
     }
 }

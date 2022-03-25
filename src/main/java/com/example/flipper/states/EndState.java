@@ -37,8 +37,8 @@ public class EndState implements FlipperState, PropertyChangeListener {
     }
 
     private boolean winGameChance() {
-        return Math.random() < 0.5;
+        double random = Math.random();
+        System.out.println("Win game chance random number:" + random);
+        return random < 0.5;
     }
-
-
 }
